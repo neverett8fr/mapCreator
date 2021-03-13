@@ -52,6 +52,7 @@
     <Compile Include="FRMMap.Designer.cs">
       <DependentUpon>FRMMap.cs</DependentUpon>
     </Compile>
+    <Compile Include="mapClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FRMMap.resx">

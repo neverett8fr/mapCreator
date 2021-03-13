@@ -51,6 +51,7 @@
             this.BTNMapSubmit.TabIndex = 1;
             this.BTNMapSubmit.Text = "Submit";
             this.BTNMapSubmit.UseVisualStyleBackColor = true;
+            this.BTNMapSubmit.Click += new System.EventHandler(this.BTNMapSubmit_Click);
             // 
             // PGBMapProgress
             // 
