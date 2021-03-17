@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
         public mapClass(double size, PictureBox world, ProgressBar progress)
         {
             //this.mapGrid = new int[size];
-            this.mapGrid = new int[Convert.ToInt32(world.Width*(size/100)), Convert.ToInt32(world.Height*(size/100))];
+            this.mapGrid = new int[Convert.ToInt32(world.Width * (size / 100)), Convert.ToInt32(world.Height * (size / 100))];
             this.world = world;
             this.progress = progress;
 
@@ -47,7 +47,6 @@ namespace WindowsFormsApp1
                 }
             }
 
-
             return count;
         }
 
@@ -59,7 +58,7 @@ namespace WindowsFormsApp1
             {
                 mapGrid[rnd.Next(0, mapGrid.GetLength(0) - 1), rnd.Next(0, mapGrid.GetLength(1) - 1)] = 1;
 
-            }            
+            }
 
             for (int i = 0; i <= lakes - 1; i++)
             {
@@ -73,22 +72,112 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void expandLand(int blockType, int expandCount)
+        private int[] expandLandRecursion(int blockType, List<int[]> coordList)
         {
-            while (expandCount > returnBlockCount(blockType))
+            System.Threading.Thread.Sleep(100);
+            Random rnd = new Random();
+            int[] coord = coordList.ElementAt(rnd.Next(0, coordList.Count() - 1));
+
+            try
             {
-                for (int x = 0; x <= mapGrid.GetLength(0) - 1; x++)
+                switch (rnd.Next(0, 3))
                 {
-                    for (int y = 0; y <= mapGrid.GetLength(1) - 1; y++)
-                    {
-                        if (blockType == mapGrid[x, y])
+                    case 0:
+                        if (coord[1] == 0 | mapGrid[coord[0], coord[1] - 1] == blockType)
                         {
+                            coord = expandLandRecursion(blockType, coordList);
+                        }
+                        else
+                        {                            
+                            coord[1] += -1;
 
                         }
+                        break;
+
+                    case 1:
+                        if (coord[0] == mapGrid.GetLength(0) - 1 | mapGrid[coord[0] + 1, coord[1]] == blockType)
+                        {
+                            coord = expandLandRecursion(blockType, coordList);
+                        }
+                        else
+                        {                           
+                            coord[0] += 1;
+                        }
+                        break;
+
+
+                    case 2:
+                        if (coord[1] == mapGrid.GetLength(1) - 1 | mapGrid[coord[0], coord[1] + 1] == blockType)
+                        {
+                            coord = expandLandRecursion(blockType, coordList);
+                        }
+                        else
+                        {
+                            
+                            coord[1] += 1;
+
+                        }
+                        break;
+
+                    case 3:
+                        if (coord[0] == 0 | mapGrid[coord[0] - 1, coord[1]] == blockType)
+                        {
+                            coord = expandLandRecursion(blockType, coordList);
+                        }
+                        else
+                        {                            
+                            coord[0] += -1;
+                        }
+                        break;
+
+                }
+
+
+
+            }
+            catch
+            {
+                coord = expandLandRecursion(blockType, coordList);
+            }
+
+            //if chosen place == already chosen, call expandLandRecursion again.
+
+
+            return coord;
+        }
+
+        private void expandLand(int blockType, int expandCount)
+        { //try doing this recursive //if already has block of type then rerun
+            //choose random where == to thing try having list of blockType
+
+            List<int[]> coordList = new List<int[]>();
+
+            for (int x = 0; x <= mapGrid.GetLength(0) - 1; x++)
+            {
+                for (int y = 0; y <= mapGrid.GetLength(1) - 1; y++)
+                {
+                    if (blockType == mapGrid[x, y])
+                    {
+                        coordList.Add(new int[2]);
+                        coordList.Last()[0] = x;
+                        coordList.Last()[1] = y;
 
                     }
+
                 }
-            }            
+            }
+
+            while (returnBlockCount(blockType) < expandCount)
+            {
+                int[] temp = new int[2];
+                temp = expandLandRecursion(blockType, coordList);
+
+                mapGrid[temp[0], temp[1]] = blockType;
+
+            }
+
+            //call expandLandRecursion until count achieved
+
         }
 
         private void connectRiver()
@@ -99,7 +188,7 @@ namespace WindowsFormsApp1
         public void generate(int rivers, int lakes, int islandNumbers)
         {
             generateSeed(rivers, lakes, islandNumbers);
-            expandLand(1, 80);
+            expandLand(1, 100);
             expandLand(2, 20);
 
             connectRiver();
