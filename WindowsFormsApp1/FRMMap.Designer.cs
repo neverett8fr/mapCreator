@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PTBMap = new System.Windows.Forms.PictureBox();
             this.BTNMapSubmit = new System.Windows.Forms.Button();
             this.PGBMapProgress = new System.Windows.Forms.ProgressBar();
             this.SCRMapSize = new System.Windows.Forms.HScrollBar();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PTBMap)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // PTBMap
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(776, 372);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.PTBMap.Location = new System.Drawing.Point(12, 12);
+            this.PTBMap.Name = "PTBMap";
+            this.PTBMap.Size = new System.Drawing.Size(776, 372);
+            this.PTBMap.TabIndex = 0;
+            this.PTBMap.TabStop = false;
             // 
             // BTNMapSubmit
             // 
@@ -75,17 +75,17 @@
             this.Controls.Add(this.SCRMapSize);
             this.Controls.Add(this.PGBMapProgress);
             this.Controls.Add(this.BTNMapSubmit);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.PTBMap);
             this.Name = "FRMMap";
             this.Text = "Map Creator";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PTBMap)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox PTBMap;
         private System.Windows.Forms.Button BTNMapSubmit;
         private System.Windows.Forms.ProgressBar PGBMapProgress;
         private System.Windows.Forms.HScrollBar SCRMapSize;

@@ -12,6 +12,7 @@ namespace WindowsFormsApp1
 {
     public partial class FRMMap : Form
     {
+        mapClass map;
         public FRMMap()
         {
             InitializeComponent();
@@ -19,7 +20,8 @@ namespace WindowsFormsApp1
 
         private void BTNMapSubmit_Click(object sender, EventArgs e)
         {
-
+            map = new mapClass(20, PTBMap, PGBMapProgress);
+            map.generate(2, 2, 5);
 
         }
     }
